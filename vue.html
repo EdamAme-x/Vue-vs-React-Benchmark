@@ -1,0 +1,27 @@
+<div id="app">
+  <p>Benchmark: {{ count }} renders</p>
+</div>
+<div id="interval"></div>
+
+<script src="vue.js"></script>
+<script>
+  const start = performance.now();
+  new Vue({
+    el: "#app",
+    data: {
+      count: 0,
+    },
+    mounted() {
+      const end = performance.now();
+      document.getElementById("interval").innerHTML =
+        "render: " + Math.floor((end - start) * 10000) / 10000 + "ms";
+      const counter = setInterval(() => {
+        console.log("count up!");
+        this.count += 3;
+      });
+      setTimeout(() => {
+        clearInterval(counter);
+      }, 1500);
+    },
+  });
+</script>

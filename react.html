@@ -1,0 +1,27 @@
+<div id="app"></div>
+<div id="interval"></div>
+<script src="./react.js"></script>
+<script type="text/babel">
+  function App() {
+    const [count, setCount] = React.useState(0);
+    React.useEffect(() => {
+      const counter = setInterval(() => {
+        console.log("count up!");
+        setCount((count) => count + 1);
+        setCount((count) => count + 1);
+        setCount((count) => count + 1);
+      });
+      setTimeout(() => {
+        clearInterval(counter);
+      }, 1500);
+    }, []);
+    return <p>Benchmark: {count} renders</p>;
+  }
+
+  const start = performance.now();
+  ReactDOM.render(<App />, document.getElementById("app"));
+  const end = performance.now();
+
+  document.getElementById("interval").innerHTML =
+    "render: " + Math.floor((end - start) * 10000) / 10000 + "ms";
+</script>
